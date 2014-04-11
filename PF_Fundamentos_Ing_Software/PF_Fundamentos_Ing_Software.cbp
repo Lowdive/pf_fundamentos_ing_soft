@@ -32,6 +32,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Administrador.h" />
+		<Unit filename="Pais.h" />
+		<Unit filename="Programa.h" />
+		<Unit filename="Universidad.h" />
+		<Unit filename="Usuario.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
