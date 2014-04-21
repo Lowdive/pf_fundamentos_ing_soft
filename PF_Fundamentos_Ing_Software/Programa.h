@@ -36,7 +36,7 @@ Programa::Programa(string nom)
     tipo="normal";
 }
 
-Programa(string nom, string arr[], int cap, string tip)
+Programa::Programa(string nom, string arr[], int cap, string tip)
 {
     nombre=nom;
     //loop para copiar arr[] a carreras
@@ -44,44 +44,44 @@ Programa(string nom, string arr[], int cap, string tip)
     tipo="normal";
 }
 
-string getProg()
+string Programa::getProg()
 {
     return nombre;
 }
-void setProg(string program)
+void Programa::setProg(string program)
 {
     nombre=program;
 }
-string getCarr()
+string Programa::getCarr()
 {
     //devuelve un string con todas las carreras?
 }
-void setNewCarrera(string carr) //adds to the end of the arr
+void Programa::setNewCarrera(string carr) //adds to the end of the arr
 {
     //recorre el arreglo, agrega al final del arreglo
 }
-void delCarrera(string carr) //searches for the career then deletes then fixes empty spaces
+void Programa::delCarrera(string carr) //searches for the career then deletes then fixes empty spaces
 {
     //recorre el arreglo, borra la carrera que se busca y reacomoda el arreglo
 }
-int getCap()
+int Programa::getCap()
 {
     return capacidad;
 }
-void setCap(int c)
+void Programa::setCap(int c)
 {
     capacidad=c;
 }
-string getTipo()
+string Programa::getTipo()
 {
     return tipo;
 }
-void setTipo(string t)
+void Programa::setTipo(string t)
 {
     tipo=t;
 }
 
-void Programa::editarPrograma()
+void Programa::Programa::editarPrograma()
 {
     //debería tener parámetros?
 }
