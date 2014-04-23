@@ -18,12 +18,13 @@ public:
     void setCap(int c);
     string getTipo();
     void setTipo(string t);
+    void editarPrograma();
 };
 
 Programa::Programa()
 {
     nombre="Intercambio";
-    carreras={"INT", "ITC", "ITIC"};
+    carreras[0]="ITIC";
     capacidad=60;
     tipo="normal";
 }
@@ -31,7 +32,7 @@ Programa::Programa()
 Programa::Programa(string nom)
 {
     nombre=nom;
-    carreras={"INT", "ITC", "ITIC"};
+    carreras[0]="ITIC";
     capacidad=60;
     tipo="normal";
 }
@@ -81,7 +82,8 @@ void Programa::setTipo(string t)
     tipo=t;
 }
 
-void Programa::Programa::editarPrograma()
+void Programa::editarPrograma()
 {
     //debería tener parámetros?
+    int x=0;
 }
