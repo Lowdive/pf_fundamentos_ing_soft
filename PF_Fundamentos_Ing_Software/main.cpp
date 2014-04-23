@@ -31,12 +31,12 @@ int main()
     Programa pdef;
     Programa pconNom;
     Programa pconNomCarrCapTip;
-    pdef.muestraUni();
-    uconID.setUIdent(5);
-    uconID.muestraUni();
-    uconIDNom.setUIdent(3);
-    uconIDNom.setUNom("Brasil");
-    uconIDNom.muestraUni();
+    pdef.muestraProg();
+    pconNom.setProg("Exchange");
+    pconNom.muestraProg();
+    pconNomCarrCapTip.setProg("Life Exchange");
+    pconNomCarrCapTip.setCap(30);
+    pconNomCarrCapTip.muestraProg();
 
     cout << "Hello world!" << endl;
     return 0;

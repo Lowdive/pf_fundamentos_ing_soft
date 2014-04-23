@@ -19,6 +19,7 @@ public:
     string getTipo();
     void setTipo(string t);
     void editarPrograma();
+    void muestraProg();
 };
 
 Programa::Programa()
@@ -86,4 +87,9 @@ void Programa::editarPrograma()
 {
     //debería tener parámetros?
     int x=0;
+}
+
+void Programa::muestraProg()
+{
+    cout << nombre << " " << carreras[0] << " " << capacidad << " " << tipo << endl;
 }
