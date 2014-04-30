@@ -3,22 +3,22 @@
 	<ActiveTarget name="Debug" />
 	<File name="Universidad.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="238" topLine="0" />
+			<Cursor1 position="238" topLine="41" />
 		</Cursor>
 	</File>
 	<File name="Usuario.h" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="246" topLine="2" />
+			<Cursor1 position="340" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Programa.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1703" topLine="0" />
+			<Cursor1 position="1870" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="38" topLine="0" />
+			<Cursor1 position="765" topLine="26" />
 		</Cursor>
 	</File>
 	<File name="Administrador.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
