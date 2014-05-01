@@ -7,11 +7,12 @@ public:
     Pais(); // inicializar con nada
     Pais(int ident); // "<id>",""
     Pais(int ident, string nom); // "<id>", "nom"
-    int getIdent();
-    void setIdent(int i);
-    string getNom();
-    void setNom(string n);
+    int getId();
+    void setId(int i);
+    string getNombre();
+    void setNombre(string n);
     void muestraPais();
+    static Pais* select(sqlite3 *db);
 };
 
 Pais::Pais()
@@ -32,22 +33,22 @@ Pais::Pais(int ident, string nom)
     nombre=nom;
 }
 
-int Pais::getIdent()
+int Pais::getId()
 {
     return id;
 }
 
-void Pais::setIdent(int i)
+void Pais::setId(int i)
 {
     id=i;
 }
 
-string Pais::getNom()
+string Pais::getNombre()
 {
     return nombre;
 }
 
-void Pais::setNom(string n)
+void Pais::setNombre(string n)
 {
     nombre=n;
 }
@@ -55,4 +56,38 @@ void Pais::setNom(string n)
 void Pais::muestraPais()
 {
     cout << id << " " << nombre << endl;
+}
+Pais *Pais::select(sqlite3 *db){
+	sqlite3_stmt *query;
+
+	string sql="SELECT id,Nombre FROM Paises";
+	sqlite3_prepare_v2(db,sql.c_str(),-1,&query,NULL);
+
+	int res=sqlite3_step(query);
+	int id;
+	string nombre;
+
+	cout<<"Selecciona el pais con su número\n"
+		<<"0	Todos\n";
+	while(res!=SQLITE_DONE){
+		id=sqlite3_column_int(query,0);
+		nombre=(char*)sqlite3_column_text(query,1);
+
+		cout<<id<<'\t'<<nombre<<'\n';
+
+		res=sqlite3_step(query);
+	}
+	sqlite3_finalize(query);
+	//~ int max=id;
+	int idSeleccionado;
+	cin>>idSeleccionado;
+
+	if(idSeleccionado==0)
+		return new Pais(0,"Todos");
+
+	sql=sqlite3_mprintf("SELECT Nombre FROM Paises WHERE id='%d';",idSeleccionado);
+	sqlite3_prepare_v2(db,sql.c_str(),-1,&query,NULL);
+	sqlite3_step(query);
+	string nombreSeleccionado=(char*)sqlite3_column_text(query,0);
+	return new Pais(idSeleccionado,nombreSeleccionado);
 }
