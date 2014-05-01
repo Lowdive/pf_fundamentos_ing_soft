@@ -1,66 +1,81 @@
+#include <string>
+
+using namespace std;
 class Usuario
 {
-private:
+protected:
     string nombre;
     int id;
-    string pass;
+    char tipo;
 public:
     Usuario();
-    Usuario(string n, int iD, string psw);
-    string getUsername();
-    void setUsername(string n);
-    int getIDu();
-    void setIDu(int iD);
-    string getPass();
-    void setPass(string psw);
-    bool autenticar(string pass);
+    Usuario(int iD, string n, char tipo);
+    string getNombre();
+    void setNombre(string n);
+    int getId();
+    void setId(int iD);
+    bool esAdiministrador(){return tipo=='A';};
+    bool esEstudiante(){return tipo=='E';};
+    static Usuario* auth(sqlite3 *db);
 };
 
 Usuario::Usuario()
 {
     nombre="Juan";
     id=0;
-    pass="user";
 }
 
-Usuario::Usuario(string n, int iD, string psw)
+Usuario::Usuario(int iD, string n, char t)
 {
     nombre=n;
     id=iD;
-    pass=psw;
+    tipo=t;
 }
 
-string Usuario::getUsername()
+string Usuario::getNombre()
 {
     return nombre;
 }
 
-void Usuario::setUsername(string n)
+void Usuario::setNombre(string n)
 {
     nombre=n;
 }
 
-int Usuario::getIDu()
+int Usuario::getId()
 {
     return id;
 }
 
-void Usuario::setIDu(int iD)
+void Usuario::setId(int iD)
 {
     id=iD;
 }
+Usuario *Usuario::auth(sqlite3 *db){
+	int uid;
+	string pass,realPass;
+	sqlite3_stmt *query;
 
-string Usuario::getPass()
-{
-    return pass;
-}
+	cout<<"Usuario: ";
+	cin>>uid;
+	cout<<"Contraseña: ";
+	cin>>pass;
 
-void Usuario::setPass(string psw)
-{
-    pass=psw;
-}
 
-bool Usuario::autenticar(string pass)
-{
-    //if pass==????
+	string sql=sqlite3_mprintf("SELECT id,Nombre,Contraseña,Tipo FROM Usuarios WHERE id='%d';",uid);
+	sqlite3_prepare_v2(db,sql.c_str(),-1,&query,NULL);
+
+	sqlite3_step(query);
+
+	realPass=(char*)sqlite3_column_text(query,2);
+
+	if(realPass==pass){
+		int id=sqlite3_column_int(query,0);
+		string nombre=(char*)sqlite3_column_text(query,1);
+		char tipo=sqlite3_column_text(query,3)[0];
+		sqlite3_finalize(query);
+		return new Usuario(id,nombre,tipo);
+	}
+	sqlite3_finalize(query);
+	return NULL;
 }
