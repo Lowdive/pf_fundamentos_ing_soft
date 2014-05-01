@@ -10,5 +10,4 @@ public:
     void setIDadmin(int newID);
     string getNomAdmin();
     void setNomAdmin(string newAdmin);
-
 };
