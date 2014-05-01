@@ -7,11 +7,12 @@ public:
     Universidad(); // inicializar con nada
     Universidad(int ident); // "<id>",""
     Universidad(int ident, string nom); // "<id>", "nom"
-    int getUIdent();
-    void setUIdent(int i);
-    string getUNom();
-    void setUNom(string n);
+    int getId();
+    void setId(int i);
+    string getNombre();
+    void setNombre(string n);
     void muestraUni();
+    static Universidad* select(sqlite3 *db, int idPais);
 };
 
 Universidad::Universidad()
@@ -32,22 +33,22 @@ Universidad::Universidad(int ident, string nom)
     nombre=nom;
 }
 
-int Universidad::getUIdent()
+int Universidad::getId()
 {
     return id;
 }
 
-void Universidad::setUIdent(int i)
+void Universidad::setId(int i)
 {
     id=i;
 }
 
-string Universidad::getUNom()
+string Universidad::getNombre()
 {
     return nombre;
 }
 
-void Universidad::setUNom(string n)
+void Universidad::setNombre(string n)
 {
     nombre=n;
 }
@@ -55,4 +56,42 @@ void Universidad::setUNom(string n)
 void Universidad::muestraUni()
 {
     cout << id << " " << nombre << endl;
+}
+Universidad *Universidad::select(sqlite3 *db,int idPais){
+	sqlite3_stmt *query;
+	string sql;
+
+	if(idPais==0)
+		sql="SELECT id,Nombre FROM Universidades";
+	else
+		sql=sqlite3_mprintf("SELECT id,Nombre FROM Universidades WHERE idPais='%d';",idPais);
+	sqlite3_prepare_v2(db,sql.c_str(),-1,&query,NULL);
+
+	int res=sqlite3_step(query);
+	int id;
+	string nombre;
+
+	cout<<"Selecciona la universidad con su número\n"
+		<<"0	Todas\n";
+	while(res!=SQLITE_DONE){
+		id=sqlite3_column_int(query,0);
+		nombre=(char*)sqlite3_column_text(query,1);
+
+		cout<<id<<'\t'<<nombre<<'\n';
+
+		res=sqlite3_step(query);
+	}
+	sqlite3_finalize(query);
+	//~ int max=id;
+	int idSeleccionado;
+	cin>>idSeleccionado;
+
+	if(idSeleccionado==0)
+		return new Universidad(0,"Todas");
+
+	sql=sqlite3_mprintf("SELECT Nombre FROM Universidades WHERE id='%d';",idSeleccionado);
+	sqlite3_prepare_v2(db,sql.c_str(),-1,&query,NULL);
+	sqlite3_step(query);
+	string nombreSeleccionado=(char*)sqlite3_column_text(query,0);
+	return new Universidad(idSeleccionado,nombreSeleccionado);
 }
