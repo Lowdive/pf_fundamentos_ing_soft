@@ -3,10 +3,11 @@ class Universidad
 private:
     int id;
     string nombre;
+    int idPais;
 public:
     Universidad(); // inicializar con nada
     Universidad(int ident); // "<id>",""
-    Universidad(int ident, string nom); // "<id>", "nom"
+    Universidad(int ident, string nom, int idPais); // "<id>", "nom"
     int getId();
     void setId(int i);
     string getNombre();
@@ -27,10 +28,11 @@ Universidad::Universidad(int ident)
     nombre="ITESM";
 }
 
-Universidad::Universidad(int ident, string nom)
+Universidad::Universidad(int ident, string nom, int pais)
 {
     id=ident;
     nombre=nom;
+    idPais=pais;
 }
 
 int Universidad::getId()
@@ -87,11 +89,12 @@ Universidad *Universidad::select(sqlite3 *db,int idPais){
 	cin>>idSeleccionado;
 
 	if(idSeleccionado==0)
-		return new Universidad(0,"Todas");
+		return new Universidad(0,"Todas",-1);
 
-	sql=sqlite3_mprintf("SELECT Nombre FROM Universidades WHERE id='%d';",idSeleccionado);
+	sql=sqlite3_mprintf("SELECT Nombre,idPais FROM Universidades WHERE id='%d';",idSeleccionado);
 	sqlite3_prepare_v2(db,sql.c_str(),-1,&query,NULL);
 	sqlite3_step(query);
 	string nombreSeleccionado=(char*)sqlite3_column_text(query,0);
-	return new Universidad(idSeleccionado,nombreSeleccionado);
+	int idPaisSeleccionado=sqlite3_column_int(query,1);
+	return new Universidad(idSeleccionado,nombreSeleccionado,idPaisSeleccionado);
 }
