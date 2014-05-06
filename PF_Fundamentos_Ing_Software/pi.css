@@ -1,0 +1,16 @@
+#vt100{
+	width: 800px;
+	margin: 0 auto;
+}
+#vt100 #scrollable::-webkit-scrollbar{
+	display:none;
+}
+html{
+	height:50%;
+}
+body,#vt100{
+	height:100%;
+}
+#cursor{
+	top:1px;
+}
