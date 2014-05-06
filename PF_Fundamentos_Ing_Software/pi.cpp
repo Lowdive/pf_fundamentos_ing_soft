@@ -66,6 +66,9 @@ int main(){
 	sqlite3 *db;
 	char *zErrMsg = 0;
 	int  rc;
+
+	Usuario *usuario=NULL;
+
 	/* Open database */
 	rc = sqlite3_open("PI.db", &db);
 	if( rc ){
@@ -73,18 +76,42 @@ int main(){
 		exit(0);
 	}
 
-	Usuario *usuario=Usuario::auth(db);
-	if(usuario==NULL){
-		cout<<"Usuario invalido";
-		exit(0);
-	}
-	if(usuario->esEstudiante())
-		usuario=new Estudiante(db,usuario);
+	char o=' ';
+	do{
+		clearScreen();
+		if(usuario==NULL){
+			switch(o){
+				case '1':
+					usuario=Usuario::auth(db);
+					if(usuario!=NULL&&usuario->esEstudiante())
+						usuario=new Estudiante(db,usuario);
+				break;
+			}
+		}else if(usuario->esEstudiante()){
+			switch(o){
+				case '1':
+					buscar(db,usuario);
+				break;
+				case '2':
+					usuario->display();
+				break;
+				case '3':
+					usuario=NULL;
+				break;
+			}
+		}
 
-	clearScreen();
-	cout<<"Bienvenido "<<usuario->getNombre()<<"\n\n";
+		if(usuario==NULL)
+			cout<<"1\tAuthenticar\n";
+		else if(usuario->esEstudiante()){
+			cout<<"1\tBuscar\n";
+			cout<<"2\tVer mi información\n";
+			cout<<"3\tLogout\n";
+		}
+		cout<<"0\tSalir\n";
+		cin>>o;
+	}while(o!='0');
 
-	buscar(db,usuario);
 
 	sqlite3_close(db);
 	return 0;
