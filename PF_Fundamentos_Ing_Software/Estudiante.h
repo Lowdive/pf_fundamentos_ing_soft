@@ -7,6 +7,7 @@ class Estudiante: public Usuario{
 		Estudiante(sqlite3 *db,Usuario *usuario);
 		int getPromedio(){return promedio;};
 		int getIbt(){return ibt;};
+		virtual void display();
 };
 
 Estudiante::Estudiante(sqlite3 *db,Usuario *usuario){
@@ -27,4 +28,11 @@ Estudiante::Estudiante(sqlite3 *db,Usuario *usuario){
 	delete usuario;
 	sqlite3_finalize(query);
 }
-
+void Estudiante::display(){
+	std::cout<<"ID\t"<<id<<'\n';
+	std::cout<<"Nombre\t"<<nombre<<'\n';
+	std::cout<<"Carrera\t"<<idCarrera<<'\n';
+	std::cout<<"Promedio\t"<<promedio<<'\n';
+	std::cout<<"IBT\t"<<ibt<<'\n';
+	std::cout<<'\n';
+}

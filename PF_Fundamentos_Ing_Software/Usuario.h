@@ -17,6 +17,7 @@ public:
     bool esAdiministrador(){return tipo=='A';};
     bool esEstudiante(){return tipo=='E';};
     static Usuario* auth(sqlite3 *db);
+    virtual void display(){};
 };
 
 Usuario::Usuario()
@@ -74,8 +75,10 @@ Usuario *Usuario::auth(sqlite3 *db){
 		string nombre=(char*)sqlite3_column_text(query,1);
 		char tipo=sqlite3_column_text(query,3)[0];
 		sqlite3_finalize(query);
+		cout<<"Bienvenido "<<nombre<<"\n\n";
 		return new Usuario(id,nombre,tipo);
 	}
+	std::cout<<"Usuario o contraseña incorrecta\n";
 	sqlite3_finalize(query);
 	return NULL;
 }
