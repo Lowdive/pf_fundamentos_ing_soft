@@ -4,6 +4,7 @@
 ##Para compilar
 
 Como se utiliza sqlite3 es nesecario tenerlo instalado (www.sqlite.org) y darselo como parametro al linker al compilar ("-l sqlite")
+También es necesario compilar con C++11 (utilizando -std=c++11).
 
 ##Para correr
 La primera ves de debe de correr createDB para crear información de prueba
