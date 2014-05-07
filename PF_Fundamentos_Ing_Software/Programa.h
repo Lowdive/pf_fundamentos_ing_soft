@@ -18,6 +18,7 @@ public:
     static void select(sqlite3 *db, int idUniversidad, int idPais, Usuario *usuario);
     void display(sqlite3 *db);
     static void nuevo(sqlite3 *db);
+    static void borrar(sqlite3 *db);
 };
 Programa::Programa(int id, string nombre, char tipo, int capacidad, int ibt, int promedio){
 	this->id=id;
@@ -206,5 +207,32 @@ void Programa::nuevo(sqlite3 *db){
 	}
 
 	std::cout<<"Programa agregado (presiona Enter para continuar)";
+	std::cin.ignore();
+}
+void Programa::borrar(sqlite3 *db){
+	sqlite3_stmt *query;
+
+	string sql="SELECT id,Nombre FROM Programas";
+	sqlite3_prepare_v2(db,sql.c_str(),-1,&query,NULL);
+
+	int res=sqlite3_step(query);
+	int id,idSeleccionado;
+	string nombre;
+
+	cout<<"Selecciona el programa con su numero (0 para cancelar)\n";
+	while(res!=SQLITE_DONE){
+		id=sqlite3_column_int(query,0);
+		nombre=(char*)sqlite3_column_text(query,1);
+		cout<<id<<'\t'<<nombre<<'\n';
+		res=sqlite3_step(query);
+	}
+	sqlite3_finalize(query);
+	std::cin>>idSeleccionado;
+
+	string sqlDelete=sqlite3_mprintf("DELETE FROM Programas WHERE id='%d';",idSeleccionado);
+	sqlite3_exec(db, sqlDelete.c_str(), NULL, 0, NULL);
+
+	std::cout<<"Programa borrado (presiona Enter para continuar)\n";
+	std::cin.ignore();
 	std::cin.ignore();
 }
