@@ -37,16 +37,16 @@ int main(int argc, char* argv[]){
 
 	//~ /* Create SQL statement */
 	sql = "CREATE TABLE Paises("  \
-			"id			  INT PRIMARY KEY	     NOT NULL," \
+			"id			  INTEGER PRIMARY KEY	     NOT NULL," \
 			"Nombre		  TEXT					 NOT NULL);"\
 			\
 			"CREATE TABLE Universidades("  \
-			"id			  INT PRIMARY KEY	     NOT NULL," \
+			"id			  INTEGER PRIMARY KEY	     NOT NULL," \
 			"idPais		  INT			   	     NOT NULL," \
 			"Nombre		  TEXT					 NOT NULL);"\
 			\
 			"CREATE TABLE Programas("  \
-			"id			   INT PRIMARY KEY	  	 NOT NULL," \
+			"id			   INTEGER PRIMARY KEY	  	 NOT NULL," \
 			"Nombre		   TEXT					 NOT NULL," \
 			"idUniversidad INT					 NOT NULL," \
 			"Tipo		   CHAR					 NOT NULL," \
@@ -55,7 +55,7 @@ int main(int argc, char* argv[]){
 			"IBT		   INT					 NOT NULL);"\
 			\
 			"CREATE TABLE Carreras("  \
-			"id			  INT PRIMARY KEY		 NOT NULL," \
+			"id			  INTEGER PRIMARY KEY		 NOT NULL," \
 			"Nombre		  TEXT					 NOT NULL);"\
 			\
 			"CREATE TABLE REL_Programas_Carreras("  \
