@@ -76,13 +76,9 @@ int main(){
 	do{
 		clearScreen();
 		if(usuario==NULL){
-			switch(o){
-				case '1':
-					usuario=Usuario::auth(db);
-					if(usuario!=NULL&&usuario->esEstudiante())
-						usuario=new Estudiante(db,usuario);
-				break;
-			}
+			usuario=Usuario::auth(db);
+			if(usuario!=NULL&&usuario->esEstudiante())
+				usuario=new Estudiante(db,usuario);
 		}else if(usuario->esEstudiante()){
 			switch(o){
 				case '1':
@@ -107,25 +103,29 @@ int main(){
 					Programa::nuevo(db);
 				break;
 				case '4':
+					Programa::borrar(db);
+					clearScreen();
+				break;
+				case '5':
 					usuario=NULL;
 				break;
 			}
 		}
 
-		if(usuario==NULL)
-			cout<<"1\tAuthenticar\n";
-		else if(usuario->esEstudiante()){
-			cout<<"1\tBuscar programa\n";
-			cout<<"2\tVer mi información\n";
-			cout<<"3\tLogout\n";
-		}else{
-			cout<<"1\tBuscar programa\n";
-			cout<<"2\tSolicitudes pendientes\n";
-			cout<<"3\tNuevo programa\n";
-			cout<<"4\tLogout\n";
+		if(usuario!=NULL){
+			if(usuario->esEstudiante()){
+				cout<<"1\tBuscar programa\n";
+				cout<<"2\tVer mi información\n";
+				cout<<"3\tLogout\n";
+			}else{
+				cout<<"1\tBuscar programa\n";
+				cout<<"2\tSolicitudes pendientes\n";
+				cout<<"3\tNuevo programa\n";
+				cout<<"4\tBorrar programa\n";
+				cout<<"5\tLogout\n";
+			}
+			cin>>o;
 		}
-		cout<<"0\tSalir\n";
-		cin>>o;
 	}while(o!='0');
 
 

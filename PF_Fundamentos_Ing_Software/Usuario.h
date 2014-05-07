@@ -61,7 +61,9 @@ Usuario *Usuario::auth(sqlite3 *db){
 		cout<<"Bienvenido "<<nombre<<"\n\n";
 		return new Usuario(id,nombre,tipo);
 	}
-	std::cout<<"Usuario o contraseña incorrecta\n";
+	std::cout<<"Usuario o contraseña incorrecta (presiona Enter para continuar)\n";
+	std::cin.ignore();
+	std::cin.ignore();
 	sqlite3_finalize(query);
 	return NULL;
 }
