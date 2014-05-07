@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <iostream>
-#include <stdlib.h>
+#include <fstream>
 #include <sqlite3.h>
 #include "Usuario.h"
 #include "Estudiante.h"
@@ -60,16 +60,17 @@ void solicitudesPendientes(sqlite3 *db){
 
 int main(){
 	sqlite3 *db;
-	int  rc;
 
-	Usuario *usuario=NULL;
-
-	/* Open database */
-	rc = sqlite3_open("PI.db", &db);
-	if( rc ){
-		fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+	ifstream file("PI.db");
+	if (!file){
+		cout<<"La base de datos no existe, corre primero createDB\n";
 		exit(0);
 	}
+
+	/* Open database */
+	sqlite3_open("PI.db", &db);
+
+	Usuario *usuario=NULL;
 
 	char o=' ';
 	do{
