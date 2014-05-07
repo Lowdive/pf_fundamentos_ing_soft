@@ -103,17 +103,17 @@ int main(int argc, char* argv[]){
 			"INSERT INTO Universidades (id,idPais,Nombre) VALUES (9,5,'Amsterdam University College');" \
 			"INSERT INTO Universidades (id,idPais,Nombre) VALUES (10,5,'Windesheim University Applied of Sciences');" \
 			\
-			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (1,'Bauhaus Physics',1,'I',2,75,550);" \
-			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (2,'Bauhaus CS',1,'S',10,80,600);" \
+			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (1,'Bauhaus Physics',1,'I',2,75,100);" \
+			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (2,'Bauhaus CS',1,'S',10,80,110);" \
 			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (3,'EUAS Summer', 2,'I',6,90,0);" \
-			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (4,'Intercambio Espora',3,'I',2,80,500);" \
-			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (5,'Pression',4,'S',8,75,570);" \
-			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (6,'Palermo al gusto',5,'I',1,75,640);" \
+			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (4,'Intercambio Espora',3,'I',2,80,80);" \
+			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (5,'Pression',4,'S',8,75,0);" \
+			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (6,'Palermo al gusto',5,'I',1,75,70);" \
 			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (7,'AUSST',6,'S',10,70,700);" \
-			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (8,'Mechanics and Industrialization',7,'I',5,95,650);" \
-			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (9,'Innovative Technologies',8,'S',2,80,570);" \
-			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (10,'Liberal Arts',9,'S',4,85,550);" \
-			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (11,'Cursussen',10,'I',7,75,550);"\
+			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (8,'Mechanics and Industrialization',7,'I',5,95,90);" \
+			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (9,'Innovative Technologies',8,'S',2,80,115);" \
+			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (10,'Liberal Arts',9,'S',4,85,70);" \
+			"INSERT INTO Programas (id,Nombre,idUniversidad,Tipo,Capacidad,Promedio,IBT) VALUES (11,'Cursussen',10,'I',7,75,0);"\
 			\
 			"INSERT INTO REL_Programas_Carreras (idPrograma,idCarrera) VALUES (1,1);"\
 			"INSERT INTO REL_Programas_Carreras (idPrograma,idCarrera) VALUES (2,1);"\
@@ -157,12 +157,12 @@ int main(int argc, char* argv[]){
 			"INSERT INTO Usuarios (id,Nombre,Contraseña,Tipo) VALUES (5,'Brenda de León','eeee','E');"\
 			"INSERT INTO Usuarios (id,Nombre,Contraseña,Tipo) VALUES (6,'Paola Bustamante','ffff','E');"\
 			\
-			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (1,1,565,80);"\
-			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (2,2,665,91);"\
-			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (3,3,765,86);"\
-			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (4,4,400,76);"\
-			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (5,5,700,97);"\
-			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (6,6,580,83);";
+			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (1,1,93,80);"\
+			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (2,2,71,91);"\
+			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (3,3,92,86);"\
+			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (4,4,87,76);"\
+			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (5,5,120,97);"\
+			"INSERT INTO Estudiantes (id,idCarrera,IBT,Promedio) VALUES (6,6,101,83);";
 
 
 
