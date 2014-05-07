@@ -5,59 +5,23 @@ private:
     string nombre;
     int idPais;
 public:
-    Universidad(); // inicializar con nada
-    Universidad(int ident); // "<id>",""
     Universidad(int ident, string nom, int idPais); // "<id>", "nom"
     int getId();
-    void setId(int i);
     string getNombre();
-    void setNombre(string n);
-    void muestraUni();
     static Universidad* select(sqlite3 *db, int idPais);
 };
 
-Universidad::Universidad()
-{
-    id=1;
-    nombre="ITESM";
-}
-
-Universidad::Universidad(int ident)
-{
-    id=ident;
-    nombre="ITESM";
-}
-
-Universidad::Universidad(int ident, string nom, int pais)
-{
+Universidad::Universidad(int ident, string nom, int pais){
     id=ident;
     nombre=nom;
     idPais=pais;
 }
 
-int Universidad::getId()
-{
+int Universidad::getId(){
     return id;
 }
-
-void Universidad::setId(int i)
-{
-    id=i;
-}
-
-string Universidad::getNombre()
-{
+string Universidad::getNombre(){
     return nombre;
-}
-
-void Universidad::setNombre(string n)
-{
-    nombre=n;
-}
-
-void Universidad::muestraUni()
-{
-    cout << id << " " << nombre << endl;
 }
 Universidad *Universidad::select(sqlite3 *db,int idPais){
 	sqlite3_stmt *query;
