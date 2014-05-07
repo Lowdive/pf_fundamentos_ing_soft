@@ -7,7 +7,7 @@ class Estudiante: public Usuario{
 		Estudiante(sqlite3 *db,Usuario *usuario);
 		int getPromedio(){return promedio;};
 		int getIbt(){return ibt;};
-		virtual void display();
+		virtual void display(sqlite3 *db);
 };
 
 Estudiante::Estudiante(sqlite3 *db,Usuario *usuario){
@@ -28,11 +28,19 @@ Estudiante::Estudiante(sqlite3 *db,Usuario *usuario){
 	delete usuario;
 	sqlite3_finalize(query);
 }
-void Estudiante::display(){
-	std::cout<<"ID\t"<<id<<'\n';
-	std::cout<<"Nombre\t"<<nombre<<'\n';
-	std::cout<<"Carrera\t"<<idCarrera<<'\n';
+void Estudiante::display(sqlite3 *db){
+	sqlite3_stmt *query;
+	string sql=sqlite3_mprintf("SELECT Nombre FROM Carreras WHERE id='%d';",idCarrera);
+	sqlite3_prepare_v2(db,sql.c_str(),-1,&query,NULL);
+
+	sqlite3_step(query);
+
+	string carrera=(char*)sqlite3_column_text(query,0);
+
+	std::cout<<"ID\t\t"<<id<<'\n';
+	std::cout<<"Nombre\t\t"<<nombre<<'\n';
+	std::cout<<"Carrera\t\t"<<carrera<<'\n';
 	std::cout<<"Promedio\t"<<promedio<<'\n';
-	std::cout<<"IBT\t"<<ibt<<'\n';
+	std::cout<<"IBT\t\t"<<ibt<<'\n';
 	std::cout<<'\n';
 }

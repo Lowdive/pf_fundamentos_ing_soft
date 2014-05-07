@@ -55,11 +55,8 @@ void buscar(sqlite3 *db,Usuario *usuario){
 	clearScreen();
 	cout<<"Universidad seleccionada: "<<universidad->getNombre()<<"\n\n";
 
-	Programa *programa=Programa::select(db,universidad->getId(),pais->getId(),usuario);
+	Programa::select(db,universidad->getId(),pais->getId(),usuario);
 	clearScreen();
-	cout<<"Programa seleccionado: "<<programa->getNombre()<<"\n\n";
-
-
 }
 
 int main(){
@@ -93,7 +90,7 @@ int main(){
 					buscar(db,usuario);
 				break;
 				case '2':
-					usuario->display();
+					usuario->display(db);
 				break;
 				case '3':
 					usuario=NULL;

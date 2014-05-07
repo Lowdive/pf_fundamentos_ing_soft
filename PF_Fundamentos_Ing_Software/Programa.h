@@ -1,3 +1,5 @@
+#include <iostream>
+
 class Programa
 {
 private:
@@ -25,7 +27,7 @@ public:
     void editarPrograma();
     void muestraProg();
     string getNombre(){return nombre;};
-    static Programa* select(sqlite3 *db, int idUniversidad, int idPais, Usuario *usuario);
+    static void select(sqlite3 *db, int idUniversidad, int idPais, Usuario *usuario);
 };
 
 Programa::Programa()
@@ -109,11 +111,9 @@ void Programa::muestraProg()
     cout << nombre << " " << carreras[0] << " " << capacidad << " " << tipo << endl;
 }
 
-Programa *Programa::select(sqlite3 *db, int idUniversidad,int idPais, Usuario *usuario){
+void Programa::select(sqlite3 *db, int idUniversidad,int idPais, Usuario *usuario){
 	sqlite3_stmt *query;
 	string sql;
-
-
 
 	if(usuario->esAdiministrador()){
 		if(idUniversidad==0&&idPais==0)
@@ -135,30 +135,46 @@ Programa *Programa::select(sqlite3 *db, int idUniversidad,int idPais, Usuario *u
 
 	int res=sqlite3_step(query);
 	int id;
+	int idPermitidos [100];
 	string nombre;
 
 	cout<<"Selecciona el programa con su numero\n";
+	int numPermitidos=0;
 	while(res!=SQLITE_DONE){
 		id=sqlite3_column_int(query,0);
+		idPermitidos[numPermitidos++]=id;
 		nombre=(char*)sqlite3_column_text(query,1);
-
-
 		cout<<id<<'\t'<<nombre<<'\n';
-
 		res=sqlite3_step(query);
 	}
 	sqlite3_finalize(query);
-	//~ int max=id;
-	int idSeleccionado;
-	cin>>idSeleccionado;
 
-	sql=sqlite3_mprintf("SELECT Nombre,Tipo,Capacidad,IBT,Promedio FROM Programas WHERE id='%d';",idSeleccionado);
-	sqlite3_prepare_v2(db,sql.c_str(),-1,&query,NULL);
-	sqlite3_step(query);
-	string nombreSeleccionado=(char*)sqlite3_column_text(query,0);
-	char tipoSeleccionado=(char)sqlite3_column_text(query,1)[0];
-	int capacidadSeleccionado=(char)sqlite3_column_int(query,2);
-	int ibtSeleccionado=(char)sqlite3_column_int(query,3);
-	int promedioSeleccionado=(char)sqlite3_column_int(query,4);
-	return new Programa(idSeleccionado,nombreSeleccionado,tipoSeleccionado,capacidadSeleccionado,ibtSeleccionado,promedioSeleccionado);
+	int idSeleccionado;
+	bool valido=false;
+	do{
+		cin>>idSeleccionado;
+		int i=0;
+		while(i<numPermitidos&&idSeleccionado!=idPermitidos[i])
+			i++;
+		if(idSeleccionado!=idPermitidos[i])
+			std::cout<<"Ese no es un programa valido, intenta de nuevo (0 para cancelar): ";
+		else
+			valido=true;
+	}while(!valido&&idSeleccionado!=0);
+
+	if(idSeleccionado!=0){
+		sql=sqlite3_mprintf("SELECT Nombre FROM Programas WHERE id='%d';",idSeleccionado);
+		sqlite3_prepare_v2(db,sql.c_str(),-1,&query,NULL);
+		sqlite3_step(query);
+		string nombreSeleccionado=(char*)sqlite3_column_text(query,0);
+		sqlite3_finalize(query);
+
+		char *sqlInsert=sqlite3_mprintf("INSERT INTO Solicitudes (idPrograma,idEstudiante) VALUES ('%d','%d');",idSeleccionado,usuario->getId());
+		sqlite3_exec(db, sqlInsert, NULL, 0, NULL);
+		std::cout<<"Solicitud enviada para "<<nombreSeleccionado<<" (presiona Enter para continuar)\n";
+
+		string basura;
+		std::cin.ignore();
+		std::getline(std::cin,basura);
+	}
 }

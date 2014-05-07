@@ -17,7 +17,7 @@ public:
     bool esAdiministrador(){return tipo=='A';};
     bool esEstudiante(){return tipo=='E';};
     static Usuario* auth(sqlite3 *db);
-    virtual void display(){};
+    virtual void display(sqlite3 *db){};
 };
 
 Usuario::Usuario()
