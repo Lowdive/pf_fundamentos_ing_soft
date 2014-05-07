@@ -11,47 +11,14 @@ private:
     int ibt;
     int promedio;
 public:
-    Programa(); // inicializar con nada
-    Programa(string nom); // "<id>",""
-    Programa(string nom, string arr[], int cap, string tip); // "<id>", "nom"
     Programa(int id, string nombre, char tipo, int capacidad, int ibt, int promedio);
-    string getProg();
-    void setProg(string program);
     string getCarreras(sqlite3 *db);
-    void setNewCarrera(string carr); //adds to the end of the arr
-    void delCarrera(string carr); //searches for the career then deletes then fixes empty spaces
-    int getCap();
-    void setCap(int c);
     string getTipo();
-    void setTipo(char t);
-    void editarPrograma();
     string getNombre(){return nombre;};
     static void select(sqlite3 *db, int idUniversidad, int idPais, Usuario *usuario);
     void display(sqlite3 *db);
     static void nuevo(sqlite3 *db);
 };
-
-Programa::Programa()
-{
-    nombre="Intercambio";
-    capacidad=60;
-    tipo='I';
-}
-
-Programa::Programa(string nom)
-{
-    nombre=nom;
-    capacidad=60;
-    tipo='I';
-}
-
-Programa::Programa(string nom, string arr[], int cap, string tip)
-{
-    nombre=nom;
-    //loop para copiar arr[] a carreras
-    capacidad=60;
-    tipo='I';
-}
 Programa::Programa(int id, string nombre, char tipo, int capacidad, int ibt, int promedio){
 	this->id=id;
 	this->nombre=nombre;
@@ -59,14 +26,6 @@ Programa::Programa(int id, string nombre, char tipo, int capacidad, int ibt, int
 	this->capacidad=capacidad;
 	this->ibt=ibt;
 	this->promedio=promedio;
-}
-string Programa::getProg()
-{
-    return nombre;
-}
-void Programa::setProg(string program)
-{
-    nombre=program;
 }
 string Programa::getCarreras(sqlite3 *db){
 	sqlite3_stmt *query;
@@ -86,44 +45,18 @@ string Programa::getCarreras(sqlite3 *db){
 
 	return carreras.substr(0,carreras.length()-2);
 }
-void Programa::setNewCarrera(string carr) //adds to the end of the arr
-{
-    //recorre el arreglo, agrega al final del arreglo
-}
-void Programa::delCarrera(string carr) //searches for the career then deletes then fixes empty spaces
-{
-    //recorre el arreglo, borra la carrera que se busca y reacomoda el arreglo
-}
-int Programa::getCap()
-{
-    return capacidad;
-}
-void Programa::setCap(int c)
-{
-    capacidad=c;
-}
 string Programa::getTipo()
 {
     if(tipo=='I')
 		return "Intercambio";
 	return "Study Abroad";
 }
-void Programa::setTipo(char t)
-{
-    tipo=t;
-}
-
-void Programa::editarPrograma()
-{
-    //debería tener parámetros?
-    int x=0;
-}
 
 void Programa::select(sqlite3 *db, int idUniversidad,int idPais, Usuario *usuario){
 	sqlite3_stmt *query;
 	string sql;
 
-	if(usuario->esAdiministrador()){
+	if(usuario->esAdministrador()){
 		if(idUniversidad==0&&idPais==0)
 			sql="SELECT id,Nombre FROM Programas";
 		else if(idUniversidad==0)

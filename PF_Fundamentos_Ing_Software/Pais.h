@@ -4,55 +4,22 @@ private:
     int id;
     string nombre;
 public:
-    Pais(); // inicializar con nada
-    Pais(int ident); // "<id>",""
-    Pais(int ident, string nom); // "<id>", "nom"
+	Pais(int ident, string nom);
     int getId();
-    void setId(int i);
     string getNombre();
-    void setNombre(string n);
     void muestraPais();
     static Pais* select(sqlite3 *db);
 };
-
-Pais::Pais()
-{
-    id=1;
-    nombre="Mexico";
-}
-
-Pais::Pais(int ident)
-{
-    id=ident;
-    nombre="Mexico";
-}
-
-Pais::Pais(int ident, string nom)
-{
+Pais::Pais(int ident, string nom){
     id=ident;
     nombre=nom;
 }
-
-int Pais::getId()
-{
+int Pais::getId(){
     return id;
 }
-
-void Pais::setId(int i)
-{
-    id=i;
-}
-
-string Pais::getNombre()
-{
+string Pais::getNombre(){
     return nombre;
 }
-
-void Pais::setNombre(string n)
-{
-    nombre=n;
-}
-
 void Pais::muestraPais()
 {
     cout << id << " " << nombre << endl;

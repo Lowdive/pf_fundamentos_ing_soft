@@ -11,46 +11,29 @@ public:
     Usuario();
     Usuario(int iD, string n, char tipo);
     string getNombre();
-    void setNombre(string n);
     int getId();
-    void setId(int iD);
-    bool esAdiministrador(){return tipo=='A';};
+    bool esAdministrador(){return tipo=='A';};
     bool esEstudiante(){return tipo=='E';};
     static Usuario* auth(sqlite3 *db);
     virtual void display(sqlite3 *db){};
 };
 
-Usuario::Usuario()
-{
+Usuario::Usuario(){
     nombre="Juan";
     id=0;
 }
 
-Usuario::Usuario(int iD, string n, char t)
-{
+Usuario::Usuario(int iD, string n, char t){
     nombre=n;
     id=iD;
     tipo=t;
 }
 
-string Usuario::getNombre()
-{
+string Usuario::getNombre(){
     return nombre;
 }
-
-void Usuario::setNombre(string n)
-{
-    nombre=n;
-}
-
-int Usuario::getId()
-{
+int Usuario::getId(){
     return id;
-}
-
-void Usuario::setId(int iD)
-{
-    id=iD;
 }
 Usuario *Usuario::auth(sqlite3 *db){
 	int uid;
