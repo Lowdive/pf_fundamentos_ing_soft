@@ -10,40 +10,9 @@
 
 using namespace std;
 
-static int callback(void *NotUsed, int argc, char **argv, char **azColName){
-	int i;
-	for(i=0; i<argc; i++){
-		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-	}
-	printf("\n");
-	return 0;
-}
-
-void queryPrint(char *sql){
-	sqlite3 *db;
-	char *zErrMsg = 0;
-	int  rc;
-
-	/* Open database */
-	rc = sqlite3_open("PI.db", &db);
-	if( rc ){
-		fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-		exit(0);
-	}
-
-	/* Execute SQL statement */
-	rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-	if( rc != SQLITE_OK ){
-	fprintf(stderr, "SQL error: %s\n", zErrMsg);
-		sqlite3_free(zErrMsg);
-	}
-	sqlite3_close(db);
-}
-
-
 void clearScreen()
 {
-    cout << string( 100, '\n' );
+    cout << string( 50, '\n' );
 }
 
 void buscar(sqlite3 *db,Usuario *usuario){
@@ -91,7 +60,6 @@ void solicitudesPendientes(sqlite3 *db){
 
 int main(){
 	sqlite3 *db;
-	char *zErrMsg = 0;
 	int  rc;
 
 	Usuario *usuario=NULL;
@@ -135,6 +103,9 @@ int main(){
 					solicitudesPendientes(db);
 				break;
 				case '3':
+					Programa::nuevo(db);
+				break;
+				case '4':
 					usuario=NULL;
 				break;
 			}
@@ -143,13 +114,14 @@ int main(){
 		if(usuario==NULL)
 			cout<<"1\tAuthenticar\n";
 		else if(usuario->esEstudiante()){
-			cout<<"1\tBuscar\n";
+			cout<<"1\tBuscar programa\n";
 			cout<<"2\tVer mi información\n";
 			cout<<"3\tLogout\n";
 		}else{
-			cout<<"1\tBuscar\n";
+			cout<<"1\tBuscar programa\n";
 			cout<<"2\tSolicitudes pendientes\n";
-			cout<<"3\tLogout\n";
+			cout<<"3\tNuevo programa\n";
+			cout<<"4\tLogout\n";
 		}
 		cout<<"0\tSalir\n";
 		cin>>o;
