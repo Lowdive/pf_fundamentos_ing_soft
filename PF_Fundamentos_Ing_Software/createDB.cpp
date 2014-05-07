@@ -74,8 +74,8 @@ int main(int argc, char* argv[]){
 			"IBT		  INT					 NOT NULL," \
 			"Promedio	  INT 					 NOT NULL);"\
 			\
-			"CREATE TABLE Solicitud("  \
-			"id			  INT PRIMARY KEY	  	 NOT NULL," \
+			"CREATE TABLE Solicitudes("  \
+			"id			  INTEGER PRIMARY KEY AUTOINCREMENT	  	 NOT NULL," \
 			"idPrograma	  INT					 NOT NULL," \
 			"idEstudiante INT					 NOT NULL);"
 			\
