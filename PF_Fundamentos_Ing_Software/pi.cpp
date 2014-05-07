@@ -58,6 +58,36 @@ void buscar(sqlite3 *db,Usuario *usuario){
 	Programa::select(db,universidad->getId(),pais->getId(),usuario);
 	clearScreen();
 }
+void solicitudesPendientes(sqlite3 *db){
+	int idEstudiante,idPrograma;
+	sqlite3_stmt *querySolicitudes,*queryEstudiante,*queryPrograma;
+	string estudiante,programa;
+
+	string sql="SELECT idEstudiante,idPrograma FROM Solicitudes;";
+	sqlite3_prepare_v2(db,sql.c_str(),-1,&querySolicitudes,NULL);
+	int resSolicitudes=sqlite3_step(querySolicitudes);
+
+	while(resSolicitudes!=SQLITE_DONE){
+		idEstudiante=sqlite3_column_int(querySolicitudes,0);
+		idPrograma=sqlite3_column_int(querySolicitudes,1);
+
+		sql=sqlite3_mprintf("SELECT Nombre FROM Usuarios WHERE id='%d'",idEstudiante);
+		sqlite3_prepare_v2(db,sql.c_str(),-1,&queryEstudiante,NULL);
+		sqlite3_step(queryEstudiante);
+		estudiante=(char*)sqlite3_column_text(queryEstudiante,0);
+
+		sql=sqlite3_mprintf("SELECT Nombre FROM Programas WHERE id='%d'",idPrograma);
+		sqlite3_prepare_v2(db,sql.c_str(),-1,&queryPrograma,NULL);
+		sqlite3_step(queryPrograma);
+		programa=(char*)sqlite3_column_text(queryPrograma,0);
+
+		cout<<estudiante<<"\t\t"<<programa<<'\n';
+		resSolicitudes=sqlite3_step(querySolicitudes);
+	}
+	sqlite3_finalize(querySolicitudes);
+	sqlite3_finalize(queryEstudiante);
+	sqlite3_finalize(queryPrograma);
+}
 
 int main(){
 	sqlite3 *db;
@@ -96,6 +126,18 @@ int main(){
 					usuario=NULL;
 				break;
 			}
+		}else{
+			switch(o){
+				case '1':
+					buscar(db,usuario);
+				break;
+				case '2':
+					solicitudesPendientes(db);
+				break;
+				case '3':
+					usuario=NULL;
+				break;
+			}
 		}
 
 		if(usuario==NULL)
@@ -103,6 +145,10 @@ int main(){
 		else if(usuario->esEstudiante()){
 			cout<<"1\tBuscar\n";
 			cout<<"2\tVer mi información\n";
+			cout<<"3\tLogout\n";
+		}else{
+			cout<<"1\tBuscar\n";
+			cout<<"2\tSolicitudes pendientes\n";
 			cout<<"3\tLogout\n";
 		}
 		cout<<"0\tSalir\n";
